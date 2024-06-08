@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+
+import os
+from src.fucklang.arguments import *
+from src.fucklang.file import *
+
+def main():
+    cells = [0] * 10000
+    cell_pointer = 0
+    if parse_arguments() == False:
+        while True:
+            x = input("-|- ")
+            if x == "bye fucker":
+                exit()
+            cells, cell_pointer = fuck(x,cells,cell_pointer)
+    else:
+        source_code = parse_arguments()
+        for x in file_instructions(source_code):
+            cells, cell_pointer = fuck(x,cells,cell_pointer)
+
+def fuck(instruction: str, cells_list: list, pointer: int):
+    os_command = instruction
+    for _ in ["f","c","k"]:
+        instruction = instruction.replace(_, "")
+    match len(instruction):
+        case 1:
+            cells_list[pointer] += 1
+        case 2:
+            cells_list[pointer] -= 1
+        case 3:
+            pointer += 1
+        case 4:
+            pointer -= 1
+        case 5:
+            print(cells_list[pointer])
+        case 6:
+            cells_list[pointer] = cells_list[pointer-1] + cells_list[pointer-2]
+        case 7:
+            cells_list[pointer] = cells_list[pointer-1] - cells_list[pointer-2]
+        case 8:
+            cells_list[pointer] = cells_list[pointer-1] * cells_list[pointer-2]
+        case 9:
+            cells_list[pointer] = cells_list[pointer-1] / cells_list[pointer-2]
+        case 10:
+            print(pointer)
+    return (cells_list,pointer)
+main()
