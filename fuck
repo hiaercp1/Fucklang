@@ -19,7 +19,6 @@ def main():
             cells, cell_pointer = fuck(x,cells,cell_pointer)
 
 def fuck(instruction: str, cells_list: list, pointer: int):
-    os_command = instruction
     for _ in ["f","c","k"]:
         instruction = instruction.replace(_, "")
     match len(instruction):
